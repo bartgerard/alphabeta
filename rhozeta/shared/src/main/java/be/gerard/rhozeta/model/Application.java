@@ -1,17 +1,18 @@
 package be.gerard.rhozeta.model;
 
-import be.gerard.rhozeta.value.LanguageKey;
-import be.gerard.rhozeta.value.TranslationKey;
+import be.gerard.rhozeta.value.ApplicationKey;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.NonNull;
+
+import java.util.List;
 
 import static lombok.AccessLevel.PRIVATE;
 
 /**
- * Translation
+ * Application
  *
  * @author bartgerard
  * @version v0.0.1
@@ -20,9 +21,7 @@ import static lombok.AccessLevel.PRIVATE;
 @AllArgsConstructor(access = PRIVATE)
 @Getter
 @Builder
-@EqualsAndHashCode
-public class Translation {
-    private TranslationKey key;
-    private LanguageKey language;
-    private String value;
+public class Application {
+    private ApplicationKey key;
+    @NonNull private List<Group> groups;
 }

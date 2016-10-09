@@ -9,7 +9,7 @@ import value.BusinessKey;
 import static lombok.AccessLevel.PRIVATE;
 
 /**
- * LanguageKey
+ * ApplicationKey
  *
  * @author bartgerard
  * @version v0.0.1
@@ -18,6 +18,6 @@ import static lombok.AccessLevel.PRIVATE;
 @AllArgsConstructor(access = PRIVATE, staticName = "of")
 @Getter
 @EqualsAndHashCode
-public class LanguageKey implements BusinessKey {
+public class ApplicationKey implements BusinessKey {
     private String key;
 }

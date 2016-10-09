@@ -11,5 +11,21 @@
 
     <artifactId>common-service</artifactId>
 
+    <dependencies>
+
+        <!-- Spring -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-jpa</artifactId>
+        </dependency>
+
+        <!-- Gerard -->
+        <dependency>
+            <groupId>be.gerard</groupId>
+            <artifactId>common-shared</artifactId>
+        </dependency>
+
+    </dependencies>
+
 
 </project>
