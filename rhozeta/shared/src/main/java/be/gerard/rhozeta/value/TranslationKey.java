@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import value.BusinessKey;
 
 import static lombok.AccessLevel.PRIVATE;
+import static lombok.AccessLevel.PUBLIC;
 
 /**
  * TranslationKey
@@ -15,7 +16,7 @@ import static lombok.AccessLevel.PRIVATE;
  * @version v0.0.1
  */
 @NoArgsConstructor(access = PRIVATE)
-@AllArgsConstructor(access = PRIVATE, staticName = "of")
+@AllArgsConstructor(access = PUBLIC, staticName = "of")
 @Getter
 @EqualsAndHashCode
 public class TranslationKey implements BusinessKey {

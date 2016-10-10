@@ -4,6 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/alphabeta.iml" filepath="$PROJECT_DIR$/alphabeta.iml" />
       <module fileurl="file://$PROJECT_DIR$/common/common.iml" filepath="$PROJECT_DIR$/common/common.iml" />
+      <module fileurl="file://$PROJECT_DIR$/common/test/common-test.iml" filepath="$PROJECT_DIR$/common/test/common-test.iml" />
       <module fileurl="file://$PROJECT_DIR$/rhozeta/rhozeta.iml" filepath="$PROJECT_DIR$/rhozeta/rhozeta.iml" />
       <module fileurl="file://$PROJECT_DIR$/rhozeta/service/rhozeta-service.iml" filepath="$PROJECT_DIR$/rhozeta/service/rhozeta-service.iml" />
       <module fileurl="file://$PROJECT_DIR$/rhozeta/shared/rhozeta-shared.iml" filepath="$PROJECT_DIR$/rhozeta/shared/rhozeta-shared.iml" />

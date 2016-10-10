@@ -16,6 +16,11 @@
     <properties>
         <lombok.version>1.16.10</lombok.version>
         <spring.boot.version>1.4.1.RELEASE</spring.boot.version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <java.version>1.8</java.version>
+        <serenity.version>1.1.42</serenity.version>
+        <webdriver.driver>firefox</webdriver.driver>
+        <groovy.version>2.4.7</groovy.version>
     </properties>
 
     <parent>
@@ -29,6 +34,12 @@
         <dependencies>
 
             <!-- Gerard -->
+            <dependency>
+                <groupId>be.gerard</groupId>
+                <artifactId>common-test</artifactId>
+                <version>${project.version}</version>
+                <scope>test</scope>
+            </dependency>
             <dependency>
                 <groupId>be.gerard</groupId>
                 <artifactId>common-shared</artifactId>
@@ -52,11 +63,28 @@
                 <version>${lombok.version}</version>
             </dependency>
 
-            <!-- DB -->
+            <!-- Serenity BDD -->
             <dependency>
-                <groupId>org.hsqldb</groupId>
-                <artifactId>hsqldb</artifactId>
-                <scope>runtime</scope>
+                <groupId>net.serenity-bdd</groupId>
+                <artifactId>serenity-core</artifactId>
+                <version>${serenity.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>net.serenity-bdd</groupId>
+                <artifactId>serenity-junit</artifactId>
+                <version>${serenity.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>net.serenity-bdd</groupId>
+                <artifactId>serenity-rest-assured</artifactId>
+                <version>${serenity.version}</version>
+            </dependency>
+
+            <!-- Groovy Baby -->
+            <dependency>
+                <groupId>org.codehaus.groovy</groupId>
+                <artifactId>groovy-all</artifactId>
+                <version>${groovy.version}</version>
             </dependency>
 
         </dependencies>
