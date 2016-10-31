@@ -14,7 +14,6 @@ import javax.persistence.Table;
 
 import static be.gerard.grouping.config.Tables.GROUPING_LEVEL;
 import static lombok.AccessLevel.PRIVATE;
-import static lombok.AccessLevel.PUBLIC;
 
 /**
  * GroupingLevel
@@ -25,7 +24,7 @@ import static lombok.AccessLevel.PUBLIC;
 @Entity
 @Table(name = GROUPING_LEVEL)
 @IdClass(Grouping.LevelKey.class)
-@NoArgsConstructor(access = PUBLIC)
+@NoArgsConstructor(access = PRIVATE)
 @AllArgsConstructor(access = PRIVATE)
 @Getter
 @Setter

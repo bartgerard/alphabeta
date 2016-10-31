@@ -13,4 +13,5 @@ import static lombok.AccessLevel.PRIVATE;
 @NoArgsConstructor(access = PRIVATE)
 public class Tables {
     public static final String GROUPING_LEVEL = "grouping_level";
+    public static final String GROUPING_VIEW = "grouping_view";
 }

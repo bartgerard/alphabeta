@@ -46,4 +46,12 @@ public final class Grouping {
         private Grouping.Level level;
     }
 
+    @NoArgsConstructor(access = PRIVATE)
+    @AllArgsConstructor(access = PUBLIC, staticName = "of")
+    @Getter
+    public static class ViewKey implements BusinessKey {
+        private Grouping.View view;
+        private Grouping.Level level;
+    }
+
 }
