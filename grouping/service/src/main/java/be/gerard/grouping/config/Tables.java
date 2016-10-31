@@ -14,4 +14,5 @@ import static lombok.AccessLevel.PRIVATE;
 public class Tables {
     public static final String GROUPING_LEVEL = "grouping_level";
     public static final String GROUPING_VIEW = "grouping_view";
+    public static final String GROUPING_LINK = "grouping_link";
 }
