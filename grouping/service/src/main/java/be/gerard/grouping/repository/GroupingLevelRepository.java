@@ -1,7 +1,7 @@
 package be.gerard.grouping.repository;
 
+import be.gerard.grouping.model.Grouping;
 import be.gerard.grouping.model.GroupingLevelRecord;
-import be.gerard.grouping.model.Level;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 /**
@@ -10,4 +10,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
  * @author bartgerard
  * @version v0.0.1
  */
-public interface GroupingLevelRepository extends JpaRepository<GroupingLevelRecord, Level> {}
+public interface GroupingLevelRepository
+        extends JpaRepository<GroupingLevelRecord, Grouping.Level>/*, QueryDslPredicateExecutor<GroupingLevelRecord>*/ {}

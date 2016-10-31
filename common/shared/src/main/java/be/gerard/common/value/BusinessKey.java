@@ -1,4 +1,4 @@
-package value;
+package be.gerard.common.value;
 
 import java.io.Serializable;
 

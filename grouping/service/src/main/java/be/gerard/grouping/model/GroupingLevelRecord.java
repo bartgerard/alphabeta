@@ -24,5 +24,5 @@ import static lombok.AccessLevel.PRIVATE;
 @Getter
 @Builder
 public class GroupingLevelRecord {
-    @EmbeddedId private GroupingLevelKey key;
+    @EmbeddedId private Grouping.LevelKey key;
 }

@@ -31,7 +31,7 @@ import static lombok.AccessLevel.PUBLIC;
 @Entity
 @Table(name = "translation")
 @NoArgsConstructor(access = PRIVATE)
-@AllArgsConstructor(staticName = "of", access = PUBLIC)
+@AllArgsConstructor(access = PUBLIC, staticName = "of")
 @Getter
 @Builder
 public class TranslationRecord {
@@ -41,7 +41,7 @@ public class TranslationRecord {
     @ElementCollection
     @CollectionTable(name = "translation_value", joinColumns = @JoinColumn(name = "translation_key"), foreignKey = @ForeignKey(name = "fk_value2translation"))
     @MapKeyColumn(name = "language_key")
-    @Column(name = "value")
+    @Column(name = "be/gerard/common/value")
     private final Map<LanguageKey, String> values = new HashMap<>();
 
 }

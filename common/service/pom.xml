@@ -25,6 +25,16 @@
             <artifactId>common-shared</artifactId>
         </dependency>
 
+        <!-- QueryDsl-->
+        <dependency>
+            <groupId>com.querydsl</groupId>
+            <artifactId>querydsl-core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.querydsl</groupId>
+            <artifactId>querydsl-jpa</artifactId>
+        </dependency>
+
         <!-- DB -->
         <dependency>
             <groupId>com.h2database</groupId>
@@ -38,6 +48,7 @@
 
         <plugins>
 
+            <!-- Maven APT -->
             <plugin>
                 <groupId>com.mysema.maven</groupId>
                 <artifactId>apt-maven-plugin</artifactId>

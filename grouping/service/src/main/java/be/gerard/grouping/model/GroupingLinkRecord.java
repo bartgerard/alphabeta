@@ -8,4 +8,6 @@ package be.gerard.grouping.model;
  */
 //@Entity
 //@Table(name = "grouping_link")
-public class GroupingLinkRecord {}
+public class GroupingLinkRecord {
+
+}

@@ -26,7 +26,7 @@ import static lombok.AccessLevel.PRIVATE;
 @Entity
 @Table(name = "group")
 @NoArgsConstructor(access = PRIVATE)
-@AllArgsConstructor(staticName = "of", access = PRIVATE)
+@AllArgsConstructor(access = PRIVATE, staticName = "of")
 @Getter
 @Builder
 public class GroupRecord {

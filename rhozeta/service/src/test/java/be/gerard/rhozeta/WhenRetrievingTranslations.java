@@ -27,8 +27,10 @@ public class WhenRetrievingTranslations {
     @Test
     public void test() {
         TranslationRecord translation = TranslationRecord.of(TranslationKey.of("test"));
-        translation.getValues().put(LanguageKey.of("en"), "test");
-        translation.getValues().put(LanguageKey.of("nl"), "test");
+        translation.getValues()
+                   .put(LanguageKey.of("en"), "test");
+        translation.getValues()
+                   .put(LanguageKey.of("nl"), "test");
 
         translationRepository.save(translation);
 
