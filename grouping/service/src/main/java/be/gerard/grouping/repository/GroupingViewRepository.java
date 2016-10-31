@@ -5,6 +5,8 @@ import be.gerard.grouping.value.Grouping;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.querydsl.QueryDslPredicateExecutor;
 
+import java.util.Set;
+
 /**
  * GroupingLevelRepository
  *
@@ -12,4 +14,6 @@ import org.springframework.data.querydsl.QueryDslPredicateExecutor;
  * @version v0.0.1
  */
 public interface GroupingViewRepository
-        extends JpaRepository<GroupingViewRecord, Grouping.ViewKey>, QueryDslPredicateExecutor<GroupingViewRecord> {}
+        extends JpaRepository<GroupingViewRecord, Grouping.ViewKey>, QueryDslPredicateExecutor<GroupingViewRecord> {
+    Set<GroupingViewRecord> findAllByView(Grouping.View view);
+}
