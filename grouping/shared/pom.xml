@@ -3,18 +3,22 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <artifactId>alphabeta</artifactId>
+        <artifactId>grouping</artifactId>
         <groupId>be.gerard</groupId>
         <version>1.0-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>common</artifactId>
-    <packaging>pom</packaging>
-    <modules>
-        <module>shared</module>
-        <module>service</module>
-    </modules>
+    <artifactId>grouping-shared</artifactId>
 
+    <dependencies>
+
+        <!-- Me -->
+        <dependency>
+            <groupId>be.gerard</groupId>
+            <artifactId>common-shared</artifactId>
+        </dependency>
+
+    </dependencies>
 
 </project>

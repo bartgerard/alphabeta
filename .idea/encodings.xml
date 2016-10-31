@@ -6,6 +6,9 @@
     <file url="file://$PROJECT_DIR$/common/service" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/common/shared" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/common/test" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/grouping" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/grouping/service" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/grouping/shared" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/rhozeta" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/rhozeta/service" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/rhozeta/shared" charset="UTF-8" />

@@ -23,7 +23,8 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <processorPath useClasspath="true" />
-        <module name="common-test" />
+        <module name="grouping-service" />
+        <module name="grouping-shared" />
         <module name="rhozeta-service" />
         <module name="rhozeta-shared" />
         <module name="service" />
@@ -34,6 +35,9 @@
       <module name="alphabeta" target="1.8" />
       <module name="common" target="1.8" />
       <module name="common-test" target="1.8" />
+      <module name="grouping" target="1.8" />
+      <module name="grouping-service" target="1.8" />
+      <module name="grouping-shared" target="1.8" />
       <module name="rhozeta" target="1.8" />
       <module name="rhozeta-service" target="1.8" />
       <module name="rhozeta-shared" target="1.8" />
