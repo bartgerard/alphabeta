@@ -1,15 +1,20 @@
 package be.gerard.grouping.model;
 
+import be.gerard.grouping.value.Grouping;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.IdClass;
 import javax.persistence.Table;
 
+import static be.gerard.grouping.config.Tables.GROUPING_LEVEL;
 import static lombok.AccessLevel.PRIVATE;
+import static lombok.AccessLevel.PUBLIC;
 
 /**
  * GroupingLevel
@@ -18,11 +23,14 @@ import static lombok.AccessLevel.PRIVATE;
  * @version v0.0.1
  */
 @Entity
-@Table(name = "grouping_level")
-@NoArgsConstructor(access = PRIVATE)
+@Table(name = GROUPING_LEVEL)
+@IdClass(Grouping.LevelKey.class)
+@NoArgsConstructor(access = PUBLIC)
 @AllArgsConstructor(access = PRIVATE)
 @Getter
+@Setter
 @Builder
 public class GroupingLevelRecord {
-    @EmbeddedId private Grouping.LevelKey key;
+    @Id private Grouping.Strategy strategy;
+    @Id private Grouping.Level level;
 }

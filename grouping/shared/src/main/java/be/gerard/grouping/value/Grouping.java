@@ -1,4 +1,4 @@
-package be.gerard.grouping.model;
+package be.gerard.grouping.value;
 
 import be.gerard.common.value.BusinessKey;
 import lombok.AllArgsConstructor;
@@ -43,7 +43,7 @@ public final class Grouping {
     @Getter
     public static class LevelKey implements BusinessKey {
         private Grouping.Strategy strategy;
-        private Grouping.Level name;
+        private Grouping.Level level;
     }
 
 }
