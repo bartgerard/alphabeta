@@ -14,6 +14,6 @@ import java.util.Set;
  * @version v0.0.1
  */
 public interface GroupingLevelRepository
-        extends JpaRepository<GroupingLevelRecord, Grouping.LevelKey>, QueryDslPredicateExecutor<GroupingLevelRecord> {
+        extends JpaRepository<GroupingLevelRecord, Grouping.Level>, QueryDslPredicateExecutor<GroupingLevelRecord> {
     Set<GroupingLevelRecord> findAllByStrategy(Grouping.Strategy strategy);
 }

@@ -35,15 +35,15 @@ public class GroupingRepositoryTest {
     public void test() {
         final GroupingLevelRecord gl1 = GroupingLevelRecord.builder()
                                                            .strategy(Grouping.Strategy.of("PC"))
-                                                           .level(Grouping.Level.of("SERVICE_PARTS"))
+                                                           .name(Grouping.Name.of("SERVICE_PARTS"))
                                                            .build();
         groupingLevelRepository.save(gl1);
 
         final GroupingLevelRecord gl2 = groupingLevelRepository.findOne(QGroupingLevelRecord.groupingLevelRecord.strategy.eq(Grouping.Strategy.of("PC"))
-                                                                                                                         .and(QGroupingLevelRecord.groupingLevelRecord.level.eq(Grouping.Level.of("SERVICE_PARTS"))));
+                                                                                                                         .and(QGroupingLevelRecord.groupingLevelRecord.name.eq(Grouping.Name.of("SERVICE_PARTS"))));
         assertThat(gl2, notNullValue());
 
-        final GroupingLevelRecord gl3 = groupingLevelRepository.findOne(Grouping.LevelKey.of(Grouping.Strategy.of("PC"), Grouping.Level.of("SERVICE_PARTS")));
+        final GroupingLevelRecord gl3 = groupingLevelRepository.findOne(Grouping.Level.of(Grouping.Strategy.of("PC"), Grouping.Name.of("SERVICE_PARTS")));
         assertThat(gl3, notNullValue());
 
         final Set<GroupingLevelRecord> gl4 = groupingLevelRepository.findAllByStrategy(Grouping.Strategy.of("PC"));

@@ -20,7 +20,7 @@ public final class Grouping {
     @NoArgsConstructor(access = PRIVATE)
     @AllArgsConstructor(access = PUBLIC, staticName = "of")
     @Getter
-    public static class Level implements BusinessKey {
+    public static class Name implements BusinessKey {
         private String level;
     }
 
@@ -41,9 +41,9 @@ public final class Grouping {
     @NoArgsConstructor(access = PRIVATE)
     @AllArgsConstructor(access = PUBLIC, staticName = "of")
     @Getter
-    public static class LevelKey implements BusinessKey {
+    public static class Level implements BusinessKey {
         private Grouping.Strategy strategy;
-        private Grouping.Level level;
+        private Grouping.Name name;
     }
 
     @NoArgsConstructor(access = PRIVATE)

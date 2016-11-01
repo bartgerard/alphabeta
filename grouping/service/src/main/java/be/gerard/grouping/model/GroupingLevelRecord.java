@@ -23,7 +23,7 @@ import static lombok.AccessLevel.PRIVATE;
  */
 @Entity
 @Table(name = GROUPING_LEVEL)
-@IdClass(Grouping.LevelKey.class)
+@IdClass(Grouping.Level.class)
 @NoArgsConstructor(access = PRIVATE)
 @AllArgsConstructor(access = PRIVATE)
 @Getter
@@ -31,5 +31,5 @@ import static lombok.AccessLevel.PRIVATE;
 @Builder
 public class GroupingLevelRecord {
     @Id private Grouping.Strategy strategy;
-    @Id private Grouping.Level level;
+    @Id private Grouping.Name name;
 }

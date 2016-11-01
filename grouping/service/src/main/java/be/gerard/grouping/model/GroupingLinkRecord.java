@@ -36,7 +36,7 @@ public class GroupingLinkRecord {
     @ManyToOne(cascade = ALL)
     @JoinColumns({
             @JoinColumn(name = "from_strategy", referencedColumnName = "strategy"),
-            @JoinColumn(name = "from_level", referencedColumnName = "level")
+            @JoinColumn(name = "from_name", referencedColumnName = "name")
     })
     private GroupingLevelRecord from;
 
@@ -44,7 +44,7 @@ public class GroupingLinkRecord {
     @ManyToOne(cascade = ALL)
     @JoinColumns({
             @JoinColumn(name = "to_strategy", referencedColumnName = "strategy"),
-            @JoinColumn(name = "to_level", referencedColumnName = "level")
+            @JoinColumn(name = "to_name", referencedColumnName = "name")
     })
     private GroupingLevelRecord to;
 
