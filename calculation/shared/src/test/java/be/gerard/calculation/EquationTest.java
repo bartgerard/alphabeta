@@ -1,6 +1,8 @@
 package be.gerard.calculation;
 
 import be.gerard.calculation.model.Equation;
+import be.gerard.calculation.model.Term;
+import be.gerard.calculation.model.Value;
 import org.junit.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -57,6 +59,53 @@ public class EquationTest {
         assertThat(Equation.Basic.SUBTRACT.proportional()
                                           .getInverse()
                                           .asDescription(values)).isEqualTo("x / (1 - y) = z");
+    }
+
+    @Test
+    public void mode_test() {
+        final Term[] terms1 = Term.terms(
+                Term.term(
+                        Value.builder()
+                             .build(),
+                        Value.builder()
+                             .build()
+                ),
+                Term.term(
+                        Value.builder()
+                             .build()
+                )
+        );
+
+        Equation.Mode.ONE_TO_ONE.prepare(terms1);
+        assertThat(terms1[Term.OUT].getValues()).hasSize(2);
+
+        Equation.Mode.ONE_TO_MANY.prepare(terms1);
+        assertThat(terms1[Term.OUT].getValues()).hasSize(1);
+
+        Equation.Mode.MANY_TO_ONE.prepare(terms1);
+        assertThat(terms1[Term.OUT].getValues()).hasSize(1);
+
+        final Term[] terms2 = Term.terms(
+                Term.term(
+                        Value.builder()
+                             .build()
+                ),
+                Term.term(
+                        Value.builder()
+                             .build(),
+                        Value.builder()
+                             .build()
+                )
+        );
+
+        Equation.Mode.ONE_TO_ONE.prepare(terms2);
+        assertThat(terms2[Term.OUT].getValues()).hasSize(1);
+
+        Equation.Mode.ONE_TO_MANY.prepare(terms2);
+        assertThat(terms2[Term.OUT].getValues()).hasSize(2);
+
+        Equation.Mode.MANY_TO_ONE.prepare(terms2);
+        assertThat(terms2[Term.OUT].getValues()).hasSize(1);
     }
 
 }

@@ -34,20 +34,36 @@ public interface Equation {
     enum Mode {
         ONE_TO_ONE() {
             @Override
-            boolean isValid(BigDecimal[][] values) {
-                return values[Term.X].length == values[Term.OUT].length;
+            boolean isValidSpecific(final Term[] terms) {
+                return terms[Term.X].getValues().length == terms[Term.OUT].getValues().length;
+            }
+
+            @Override
+            public void prepare(Term[] terms) {
+                terms[Term.OUT] = Term.of(new Value[terms[Term.X].getValues().length]);
             }
         },
         ONE_TO_MANY() {
             @Override
-            boolean isValid(BigDecimal[][] values) {
-                return values[Term.X].length == 1 && values[Term.Y].length >= 1 && values[Term.OUT].length >= 1;
+            boolean isValidSpecific(final Term[] terms) {
+                return terms[Term.X].getValues().length == 1 && terms[Term.Y].getValues().length >= 1
+                        && terms[Term.OUT].getValues().length >= 1;
+            }
+
+            @Override
+            public void prepare(Term[] terms) {
+                terms[Term.OUT] = Term.of(new Value[terms[Term.Y].getValues().length]);
             }
         },
         MANY_TO_ONE() {
             @Override
-            boolean isValid(BigDecimal[][] values) {
-                return values[Term.X].length >= 1 && values[Term.OUT].length == 1;
+            boolean isValidSpecific(final Term[] terms) {
+                return terms[Term.X].getValues().length >= 1 && terms[Term.OUT].getValues().length == 1;
+            }
+
+            @Override
+            public void prepare(Term[] terms) {
+                terms[Term.OUT] = Term.of(new Value[1]);
             }
         };
 
@@ -55,7 +71,13 @@ public interface Equation {
 
         }
 
-        abstract boolean isValid(final BigDecimal[][] values);
+        public boolean isValid(final Term[] terms) {
+            return terms.length == Term.Type.values().length && isValidSpecific(terms);
+        }
+
+        abstract boolean isValidSpecific(final Term[] terms);
+
+        public abstract void prepare(final Term[] terms);
 
     }
 
