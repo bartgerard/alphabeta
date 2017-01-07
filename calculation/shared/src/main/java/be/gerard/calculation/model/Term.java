@@ -48,6 +48,14 @@ public class Term {
         return terms;
     }
 
+    public static <T> T[] inverse(final T[] values) {
+        final T x = values[X];
+        values[X] = values[OUT];
+        values[OUT] = x;
+
+        return values;
+    }
+
     /**
      * X (operator) Y = OUT
      */

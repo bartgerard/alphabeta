@@ -2,6 +2,7 @@ package be.gerard.calculation.model;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import org.springframework.util.Assert;
 
 import java.math.BigDecimal;
 import java.util.Objects;
@@ -30,54 +31,94 @@ public interface Equation {
 
     default String asDescription(final String[] values) {return getDescription().apply(values);}
 
+    default void execute(
+            final Term[] terms,
+            final Value.Component[] components,
+            final Mode mode
+    ) {
+        Assert.notNull(mode, "mode is invalid");
+
+        if (terms[Term.Y].getValues().length == 0) {
+            return;
+        }
+
+        if (terms[Term.X].getValues().length > 0) {
+            mode.prepare(terms);
+
+            final Value[] xs = terms[Term.X].getValues();
+            final Value[] ys = terms[Term.Y].getValues();
+            final Value[] outs = terms[Term.OUT].getValues();
+
+            for (int i = 0; i < xs.length; i++) {
+                for (int j = 0; j < xs.length; j++) {
+                    final BigDecimal value = getOperator().function()
+                                                          .apply(xs[i].getValue(), ys[j].getValue());
+
+                    outs[i * xs.length + j] = Value.builder()
+                                                   .value(value)
+                                                   .component(components[Term.OUT])
+                                                   .build();
+                }
+            }
+        } else if (terms[Term.OUT].getValues().length > 0) {
+            getInverse().execute(Term.inverse(terms), Term.inverse(components), mode.getInverse());
+        }
+    }
+
     @RequiredArgsConstructor(access = PRIVATE)
     enum Mode {
         ONE_TO_ONE() {
             @Override
-            boolean isValidSpecific(final Term[] terms) {
+            protected boolean isValidSpecific(final Term[] terms) {
                 return terms[Term.X].getValues().length == terms[Term.OUT].getValues().length;
             }
 
             @Override
-            public void prepare(Term[] terms) {
+            public void prepare(final Term[] terms) {
                 terms[Term.OUT] = Term.of(new Value[terms[Term.X].getValues().length]);
             }
         },
         ONE_TO_MANY() {
             @Override
-            boolean isValidSpecific(final Term[] terms) {
+            protected boolean isValidSpecific(final Term[] terms) {
                 return terms[Term.X].getValues().length == 1 && terms[Term.Y].getValues().length >= 1
                         && terms[Term.OUT].getValues().length >= 1;
             }
 
             @Override
-            public void prepare(Term[] terms) {
+            public void prepare(final Term[] terms) {
                 terms[Term.OUT] = Term.of(new Value[terms[Term.Y].getValues().length]);
             }
         },
         MANY_TO_ONE() {
             @Override
-            boolean isValidSpecific(final Term[] terms) {
+            protected boolean isValidSpecific(final Term[] terms) {
                 return terms[Term.X].getValues().length >= 1 && terms[Term.OUT].getValues().length == 1;
             }
 
             @Override
-            public void prepare(Term[] terms) {
+            public void prepare(final Term[] terms) {
                 terms[Term.OUT] = Term.of(new Value[1]);
             }
         };
 
-        void execute(final BigDecimal[][] values) {
-
-        }
+        private static final Mode[] INVERSE = new Mode[]{
+                ONE_TO_ONE,
+                MANY_TO_ONE,
+                ONE_TO_MANY
+        };
 
         public boolean isValid(final Term[] terms) {
             return terms.length == Term.Type.values().length && isValidSpecific(terms);
         }
 
-        abstract boolean isValidSpecific(final Term[] terms);
+        protected abstract boolean isValidSpecific(final Term[] terms);
 
         public abstract void prepare(final Term[] terms);
+
+        private Mode getInverse() {
+            return INVERSE[ordinal()];
+        }
 
     }
 
