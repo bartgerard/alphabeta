@@ -1,9 +1,9 @@
 package be.gerard.calculation.model;
 
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 
+import java.math.BigDecimal;
 import java.util.Objects;
 import java.util.function.Function;
 
@@ -30,11 +30,33 @@ public interface Equation {
 
     default String asDescription(final String[] values) {return getDescription().apply(values);}
 
-    @NoArgsConstructor(access = PRIVATE)
+    @RequiredArgsConstructor(access = PRIVATE)
     enum Mode {
-        ONE_TO_ONE,
-        ONE_TO_MANY,
-        MANY_TO_ONE
+        ONE_TO_ONE() {
+            @Override
+            boolean isValid(BigDecimal[][] values) {
+                return values[Term.X].length == values[Term.OUT].length;
+            }
+        },
+        ONE_TO_MANY() {
+            @Override
+            boolean isValid(BigDecimal[][] values) {
+                return values[Term.X].length == 1 && values[Term.Y].length >= 1 && values[Term.OUT].length >= 1;
+            }
+        },
+        MANY_TO_ONE() {
+            @Override
+            boolean isValid(BigDecimal[][] values) {
+                return values[Term.X].length >= 1 && values[Term.OUT].length == 1;
+            }
+        };
+
+        void execute(final BigDecimal[][] values) {
+
+        }
+
+        abstract boolean isValid(final BigDecimal[][] values);
+
     }
 
     @RequiredArgsConstructor(access = PRIVATE)
