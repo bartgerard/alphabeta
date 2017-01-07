@@ -12,6 +12,7 @@
         <module>common</module>
         <module>rhozeta</module>
         <module>grouping</module>
+        <module>calculation</module>
     </modules>
 
     <properties>

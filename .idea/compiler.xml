@@ -23,6 +23,8 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <processorPath useClasspath="true" />
+        <module name="calculation-service" />
+        <module name="calculation-shared" />
         <module name="grouping-service" />
         <module name="grouping-shared" />
         <module name="rhozeta-service" />
@@ -33,6 +35,9 @@
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="alphabeta" target="1.8" />
+      <module name="calculation" target="1.8" />
+      <module name="calculation-service" target="1.8" />
+      <module name="calculation-shared" target="1.8" />
       <module name="common" target="1.8" />
       <module name="common-test" target="1.8" />
       <module name="grouping" target="1.8" />
