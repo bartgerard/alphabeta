@@ -34,9 +34,7 @@ public class Value {
 
         String getName();
 
-        default String getDescription() {
-            return "";
-        }
+        default String getDescription() {return "";}
 
     }
 
