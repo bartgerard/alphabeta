@@ -5,6 +5,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.util.Assert;
 
 import java.math.BigDecimal;
+import java.util.Arrays;
 import java.util.Objects;
 import java.util.function.Function;
 
@@ -21,6 +22,10 @@ public interface Equation {
 
     Operator getOperator();
 
+    default boolean isRate() {return false;}
+
+    default boolean isRateInverse() {return false;}
+
     default boolean hasInverse() {return Objects.nonNull(getInverse());}
 
     default Equation getInverse() {return null;}
@@ -30,6 +35,25 @@ public interface Equation {
     default Equation proportional() {return null;}
 
     default String asDescription(final String[] values) {return getDescription().apply(values);}
+
+    default Value.Unit[] unit(
+            final Value.Unit[] xUnits,
+            final Value.Unit[] yUnits
+    ) {
+        final Value.Unit[] outUnits = Arrays.copyOf(xUnits, xUnits.length);
+
+        if (isRate() && yUnits.length == 2) {
+            if (isRateInverse()) {
+                Assert.isTrue(xUnits[Term.X] == yUnits[Term.X], "Do not compare apples with pears! :-)");
+                outUnits[Term.X] = yUnits[Term.Y];
+            } else {
+                Assert.isTrue(xUnits[Term.X] == yUnits[Term.Y], "Do not compare apples with pears! :-)");
+                outUnits[Term.X] = yUnits[Term.X];
+            }
+        }
+
+        return outUnits;
+    }
 
     default void execute(
             final Term[] terms,
@@ -50,12 +74,17 @@ public interface Equation {
             final Value[] outs = terms[Term.OUT].getValues();
 
             for (int i = 0; i < xs.length; i++) {
+                final Value x = xs[i];
+
                 for (int j = 0; j < xs.length; j++) {
+                    final Value y = ys[j];
+
                     final BigDecimal value = getOperator().function()
-                                                          .apply(xs[i].getValue(), ys[j].getValue());
+                                                          .apply(x.getValue(), y.getValue());
 
                     outs[i * xs.length + j] = Value.builder()
                                                    .value(value)
+                                                   .unit(unit(x.getUnit(), y.getUnit()))
                                                    .component(components[Term.OUT])
                                                    .build();
                 }
@@ -136,10 +165,15 @@ public interface Equation {
     @RequiredArgsConstructor(access = PRIVATE)
     @Getter
     enum Basic implements Equation {
-        ADD(Operator.Basic.ADD),
-        SUBTRACT(Operator.Basic.SUBTRACT),
-        MULTIPLY(Operator.Basic.MULTIPLY),
-        DIVIDE(Operator.Basic.DIVIDE);
+        ADD(Operator.Basic.ADD, false),
+        SUBTRACT(Operator.Basic.SUBTRACT, false),
+        MULTIPLY(Operator.Basic.MULTIPLY, true),
+        DIVIDE(Operator.Basic.DIVIDE, true) {
+            @Override
+            public boolean isRateInverse() {
+                return true;
+            }
+        };
 
         private static final Basic[] INVERSE = new Basic[]{
                 SUBTRACT,
@@ -149,6 +183,8 @@ public interface Equation {
         };
 
         private final Operator operator;
+
+        private final boolean rate;
 
         @Override
         public Equation getInverse() {

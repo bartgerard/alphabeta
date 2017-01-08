@@ -1,6 +1,7 @@
 package be.gerard.calculation.model;
 
 import lombok.Builder;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
@@ -17,6 +18,7 @@ import static lombok.AccessLevel.PRIVATE;
 @RequiredArgsConstructor(access = PRIVATE)
 @Getter
 @Builder
+@EqualsAndHashCode
 public class Value {
 
     private final BigDecimal value;

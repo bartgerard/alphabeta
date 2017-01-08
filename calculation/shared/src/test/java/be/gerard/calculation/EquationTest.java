@@ -1,9 +1,12 @@
 package be.gerard.calculation;
 
+import be.gerard.calculation.model.Currency;
 import be.gerard.calculation.model.Equation;
 import be.gerard.calculation.model.Term;
 import be.gerard.calculation.model.Value;
 import org.junit.Test;
+
+import java.math.BigDecimal;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -106,6 +109,32 @@ public class EquationTest {
 
         Equation.Mode.MANY_TO_ONE.prepare(terms2);
         assertThat(terms2[Term.OUT].getValues()).hasSize(1);
+    }
+
+    @Test
+    public void unit_test() { // Tadadum Tss! -> Joke!
+        final Term[] terms = Term.terms(
+                Term.term(
+                        Value.builder()
+                             .value(BigDecimal.TEN)
+                             .unit(new Value.Unit[]{Currency.EUR})
+                             .build()
+                ),
+                Term.term(
+                        Value.builder()
+                             .value(BigDecimal.TEN)
+                             .unit(new Value.Unit[]{Currency.JPY, Currency.EUR})
+                             .build()
+                )
+        );
+
+        Equation.Basic.MULTIPLY.execute(terms, new Value.Component[]{TestComponent.MSRP, TestComponent.EXCHANGE_RATE, TestComponent.MSRP}, Equation.Mode.ONE_TO_ONE);
+
+        assertThat(terms[Term.OUT].getValues()[0]).isEqualTo(Value.builder()
+                                                                  .value(BigDecimal.valueOf(100L))
+                                                                  .unit(new Value.Unit[]{Currency.JPY})
+                                                                  .component(TestComponent.MSRP)
+                                                                  .build());
     }
 
 }
