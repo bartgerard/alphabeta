@@ -27,14 +27,13 @@ public class Value {
 
     private final Unit[] unit;
 
-    public interface Component {}
+    @FunctionalInterface
+    public interface Component extends Register.Registrable {}
 
     @FunctionalInterface
-    public interface Unit {
+    public interface Unit extends Register.Registrable {
 
         Unit PERCENT = () -> "%";
-
-        String getName();
 
         default String getDescription() {return "";}
 

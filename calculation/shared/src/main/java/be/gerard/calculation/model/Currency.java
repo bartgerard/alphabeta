@@ -181,9 +181,4 @@ public enum Currency implements Value.Unit {
 
     private final String description;
 
-    @Override
-    public String getName() {
-        return name();
-    }
-
 }

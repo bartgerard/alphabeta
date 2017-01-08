@@ -19,6 +19,12 @@
             <artifactId>common-shared</artifactId>
         </dependency>
 
+        <!-- Serenity -->
+        <dependency>
+            <groupId>net.serenity-bdd</groupId>
+            <artifactId>serenity-cucumber</artifactId>
+        </dependency>
+
     </dependencies>
 
 

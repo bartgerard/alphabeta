@@ -1,9 +1,10 @@
 package be.gerard.calculation.model;
 
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
-import static lombok.AccessLevel.PROTECTED;
+import static lombok.AccessLevel.PUBLIC;
 
 /**
  * Term
@@ -11,8 +12,9 @@ import static lombok.AccessLevel.PROTECTED;
  * @author bartgerard
  * @version v0.0.1
  */
-@RequiredArgsConstructor(access = PROTECTED, staticName = "of")
+@RequiredArgsConstructor(access = PUBLIC, staticName = "of")
 @Getter
+@EqualsAndHashCode
 public class Term {
 
     public static final int X = Type.X.ordinal();
@@ -25,7 +27,7 @@ public class Term {
         return Term.of(values);
     }
 
-    private static Term[] terms() {
+    public static Term[] terms() {
         return new Term[Term.Type.values().length];
     }
 
