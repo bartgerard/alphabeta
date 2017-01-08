@@ -8,6 +8,7 @@ import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.Objects;
 import java.util.function.Function;
+import java.util.function.IntFunction;
 
 import static lombok.AccessLevel.PRIVATE;
 
@@ -53,7 +54,7 @@ public interface Equation {
         return outUnits;
     }
 
-    default void execute(
+    default void calculate(
             final Term[] terms,
             final Value.Component[] components,
             final Mode mode
@@ -71,24 +72,9 @@ public interface Equation {
             final Value[] ys = terms[Term.Y].getValues();
             final Value[] outs = terms[Term.OUT].getValues();
 
-            for (int i = 0; i < xs.length; i++) {
-                final Value x = xs[i];
-
-                for (int j = 0; j < xs.length; j++) {
-                    final Value y = ys[j];
-
-                    final BigDecimal value = getOperator().function()
-                                                          .apply(x.getValue(), y.getValue());
-
-                    outs[i * xs.length + j] = Value.builder()
-                                                   .value(value)
-                                                   .unit(unit(x.getUnit(), y.getUnit()))
-                                                   .component(components[Term.OUT])
-                                                   .build();
-                }
-            }
+            mode.calculate(this, xs, ys, outs, components[Term.OUT]);
         } else if (terms[Term.OUT].getValues().length > 0) {
-            getInverse().execute(Term.inverse(terms), Term.inverse(components), mode.getInverse());
+            getInverse().calculate(Term.inverse(terms), Term.inverse(components), mode.getInverse());
         }
     }
 
@@ -102,7 +88,23 @@ public interface Equation {
 
             @Override
             public void prepare(final Term[] terms) {
-                terms[Term.OUT] = Term.of(new Value[terms[Term.X].getValues().length]);
+                terms[Term.OUT] = Term.of(GENERATOR.apply(terms[Term.X].getValues().length));
+            }
+
+            @Override
+            void calculate(
+                    final Equation equation,
+                    final Value[] xs,
+                    final Value[] ys,
+                    final Value[] outs,
+                    final Value.Component component
+            ) {
+                for (int i = 0; i < xs.length; i++) {
+                    final Value x = xs[i];
+                    final Value y = ys[ys.length < 2 ? 0 : i];
+
+                    outs[i] = calculate(equation, x, y, component);
+                }
             }
         },
         ONE_TO_MANY() {
@@ -114,7 +116,26 @@ public interface Equation {
 
             @Override
             public void prepare(final Term[] terms) {
-                terms[Term.OUT] = Term.of(new Value[terms[Term.Y].getValues().length]);
+                terms[Term.OUT] = Term.of(GENERATOR.apply(terms[Term.Y].getValues().length));
+            }
+
+            @Override
+            void calculate(
+                    final Equation equation,
+                    final Value[] xs,
+                    final Value[] ys,
+                    final Value[] outs,
+                    final Value.Component component
+            ) {
+                for (int i = 0; i < xs.length; i++) {
+                    final Value x = xs[i];
+
+                    for (int j = 0; j < ys.length; j++) {
+                        final Value y = ys[j];
+
+                        outs[i * xs.length + j] = calculate(equation, x, y, component);
+                    }
+                }
             }
         },
         MANY_TO_ONE() {
@@ -125,9 +146,22 @@ public interface Equation {
 
             @Override
             public void prepare(final Term[] terms) {
-                terms[Term.OUT] = Term.of(new Value[1]);
+                terms[Term.OUT] = Term.of(GENERATOR.apply(1));
+            }
+
+            @Override
+            void calculate(
+                    final Equation equation,
+                    final Value[] xs,
+                    final Value[] ys,
+                    final Value[] outs,
+                    final Value.Component component
+            ) {
+                outs[0] = calculate(equation, xs[0], ys[0], component);
             }
         };
+
+        private static final IntFunction<Value[]> GENERATOR = Value[]::new;
 
         private static final Mode[] INVERSE = new Mode[]{
                 ONE_TO_ONE,
@@ -145,6 +179,31 @@ public interface Equation {
 
         private Mode getInverse() {
             return INVERSE[ordinal()];
+        }
+
+        abstract void calculate(
+                final Equation equation,
+                final Value[] xs,
+                final Value[] ys,
+                final Value[] outs,
+                final Value.Component component
+        );
+
+        static Value calculate(
+                final Equation equation,
+                final Value x,
+                final Value y,
+                final Value.Component component
+        ) {
+            final BigDecimal value = equation.getOperator()
+                                             .function()
+                                             .apply(x.getValue(), y.getValue());
+
+            return Value.builder()
+                        .value(value)
+                        .unit(equation.unit(x.getUnit(), y.getUnit()))
+                        .component(component)
+                        .build();
         }
 
     }

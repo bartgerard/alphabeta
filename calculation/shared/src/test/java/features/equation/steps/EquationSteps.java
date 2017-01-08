@@ -33,20 +33,16 @@ public class EquationSteps {
 
     private Equation equation;
 
-    private Equation.Mode mode = Equation.Mode.ONE_TO_ONE;
+    private Equation.Mode mode;
 
     @Given("the following x values")
     public void x_values(final List<Input> data) {
-        x = Term.of(data.stream()
-                        .map(Input::toValue)
-                        .toArray(Value[]::new));
+        x = toTerm(data);
     }
 
     @When("applying the following y values")
     public void y_values(final List<Input> data) {
-        y = Term.of(data.stream()
-                        .map(Input::toValue)
-                        .toArray(Value[]::new));
+        y = toTerm(data);
     }
 
     @When("using the default (.+) equation")
@@ -59,14 +55,17 @@ public class EquationSteps {
         this.equation = equation.proportional();
     }
 
+    @When("in mode (.+)")
+    public void mode(final Equation.Mode mode) {
+        this.mode = mode;
+    }
+
     @Then("I expect the following out values")
     public void out_values(final List<Input> data) {
-        final Term out = Term.of(data.stream()
-                                     .map(Input::toValue)
-                                     .toArray(Value[]::new));
+        final Term out = toTerm(data);
 
         final Term[] terms = Term.terms(x, y);
-        equation.execute(terms, new Value.Component[3], mode);
+        equation.calculate(terms, new Value.Component[3], mode);
 
         for (int i = 0; i < terms[Term.OUT].getValues().length; i++) {
             final Value expectedValue = out.getValues()[i];
@@ -80,7 +79,13 @@ public class EquationSteps {
     @Then("I expect the following exception message: (.+)")
     public void crash(final String message) {
         final Term[] terms = Term.terms(x, y);
-        assertThatThrownBy(() -> equation.execute(terms, new Value.Component[3], mode)).hasMessage(message);
+        assertThatThrownBy(() -> equation.calculate(terms, new Value.Component[3], mode)).hasMessage(message);
+    }
+
+    private Term toTerm(List<Input> data) {
+        return Term.of(data.stream()
+                           .map(Input::toValue)
+                           .toArray(Value[]::new));
     }
 
     @NoArgsConstructor

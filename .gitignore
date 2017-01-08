@@ -260,3 +260,4 @@ xcuserdata/
 hs_err_pid*
 
 *.iml
+!/calculation/shared/src/test/resources/features/equation/equation.feature

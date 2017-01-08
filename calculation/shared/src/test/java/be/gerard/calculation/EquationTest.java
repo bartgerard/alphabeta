@@ -128,7 +128,7 @@ public class EquationTest {
                 )
         );
 
-        Equation.Basic.MULTIPLY.execute(terms, new Value.Component[]{TestComponent.MSRP, TestComponent.EXCHANGE_RATE, TestComponent.MSRP}, Equation.Mode.ONE_TO_ONE);
+        Equation.Basic.MULTIPLY.calculate(terms, new Value.Component[]{TestComponent.MSRP, TestComponent.EXCHANGE_RATE, TestComponent.MSRP}, Equation.Mode.ONE_TO_ONE);
 
         assertThat(terms[Term.OUT].getValues()[0]).isEqualTo(Value.builder()
                                                                   .value(BigDecimal.valueOf(100L))
