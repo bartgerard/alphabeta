@@ -25,10 +25,10 @@ public interface Operator {
     }
 
     interface Proportional extends Operator {
-        Basic ADD = () -> (x, y) -> BigDecimal.valueOf(100)
+        Basic ADD = () -> (x, y) -> BigDecimal.valueOf(1, -2)
                                               .add(y)
                                               .multiply(x)
-                                              .multiply(BigDecimal.valueOf(0.01));
+                                              .multiply(BigDecimal.valueOf(1, 2));
         Basic SUBTRACT = () -> (x, y) -> ADD.function()
                                             .apply(x, y.negate());
         Basic MULTIPLY = () -> (x, y) -> x.multiply(y)
@@ -36,8 +36,8 @@ public interface Operator {
         Basic DIVIDE = () -> (x, y) -> x.multiply(BigDecimal.valueOf(1, -2))
                                         .divide(y, PRECISION, ROUNDING_MODE);
 
-        Basic INVERSE_ADD = () -> (x, y) -> x.multiply(BigDecimal.valueOf(100))
-                                             .divide(BigDecimal.valueOf(100)
+        Basic INVERSE_ADD = () -> (x, y) -> x.multiply(BigDecimal.valueOf(1, -2))
+                                             .divide(BigDecimal.valueOf(1, -2)
                                                                .add(y), PRECISION, ROUNDING_MODE);
         Basic INVERSE_SUBTRACT = () -> (x, y) -> INVERSE_ADD.function()
                                                             .apply(x, y.negate());
