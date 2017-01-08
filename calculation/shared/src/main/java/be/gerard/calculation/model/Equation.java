@@ -43,13 +43,11 @@ public interface Equation {
         final Value.Unit[] outUnits = Arrays.copyOf(xUnits, xUnits.length);
 
         if (isRate() && yUnits.length == 2) {
-            if (isRateInverse()) {
-                Assert.isTrue(xUnits[Term.X] == yUnits[Term.X], "Do not compare apples with pears! :-)");
-                outUnits[Term.X] = yUnits[Term.Y];
-            } else {
-                Assert.isTrue(xUnits[Term.X] == yUnits[Term.Y], "Do not compare apples with pears! :-)");
-                outUnits[Term.X] = yUnits[Term.X];
-            }
+            final Value.Unit xUnitNominator = Value.Unit.nominator(xUnits);
+            final Value.Unit yUnitDenominator = Value.Unit.denominator(yUnits, isRateInverse());
+            Assert.isTrue(xUnitNominator == yUnitDenominator, "units did not match [x=" + Value.Unit.asText(xUnits) + ", y=" + Value.Unit.asText(yUnits, isRateInverse()) + "]");
+
+            outUnits[Term.X] = Value.Unit.nominator(yUnits, isRateInverse());
         }
 
         return outUnits;

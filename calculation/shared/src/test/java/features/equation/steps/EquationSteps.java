@@ -15,6 +15,7 @@ import java.math.BigDecimal;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 /**
  * EquationSteps
@@ -71,6 +72,12 @@ public class EquationSteps {
             assertThat(value.getValue()).isCloseTo(expectedValue.getValue(), Offset.offset(BigDecimal.valueOf(1, 5)));
             assertThat(value.getUnit()).isEqualTo(expectedValue.getUnit());
         }
+    }
+
+    @Then("I expect the following exception message: (.+)")
+    public void crash(final String message) {
+        final Term[] terms = Term.terms(x, y);
+        assertThatThrownBy(() -> equation.execute(terms, new Value.Component[3], mode)).hasMessage(message);
     }
 
     @NoArgsConstructor
