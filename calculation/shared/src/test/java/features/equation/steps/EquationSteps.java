@@ -1,5 +1,6 @@
 package features.equation.steps;
 
+import be.gerard.calculation.TestComponent;
 import be.gerard.calculation.model.Currency;
 import be.gerard.calculation.model.Equation;
 import be.gerard.calculation.model.Register;
@@ -26,6 +27,7 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 public class EquationSteps {
 
     private static final Register<Value.Unit> UNITS = new Register<>(Value.Unit[]::new, Currency.values());
+    private static final Register<Value.Component> COMPONENTS = new Register<>(Value.Component[]::new, TestComponent.values());
 
     private Term x, y;
 
@@ -47,7 +49,7 @@ public class EquationSteps {
                         .toArray(Value[]::new));
     }
 
-    @When("using the (.+) equation")
+    @When("using the default (.+) equation")
     public void operator(final Equation.Basic equation) {
         this.equation = equation;
     }
@@ -71,6 +73,7 @@ public class EquationSteps {
             final Value value = terms[Term.OUT].getValues()[i];
             assertThat(value.getValue()).isCloseTo(expectedValue.getValue(), Offset.offset(BigDecimal.valueOf(1, 5)));
             assertThat(value.getUnit()).isEqualTo(expectedValue.getUnit());
+            assertThat(value.getComponent()).isEqualTo(expectedValue.getComponent());
         }
     }
 
@@ -84,11 +87,13 @@ public class EquationSteps {
     public static class Input {
         private BigDecimal value;
         private String units;
+        private String component;
 
         Value toValue() {
             return Value.builder()
                         .value(value)
-                        .unit(UNITS.toUnits(units))
+                        .unit(UNITS.toValues(units))
+                        .component(COMPONENTS.toValue(component))
                         .build();
         }
 

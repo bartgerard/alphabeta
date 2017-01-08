@@ -31,8 +31,10 @@ public interface Operator {
                                               .multiply(BigDecimal.valueOf(0.01));
         Basic SUBTRACT = () -> (x, y) -> ADD.function()
                                             .apply(x, y.negate());
-        Basic MULTIPLY = () -> BigDecimal::multiply;
-        Basic DIVIDE = () -> (x, y) -> x.divide(y, PRECISION, ROUNDING_MODE);
+        Basic MULTIPLY = () -> (x, y) -> x.multiply(y)
+                                          .multiply(BigDecimal.valueOf(1, 2));
+        Basic DIVIDE = () -> (x, y) -> x.multiply(BigDecimal.valueOf(1, -2))
+                                        .divide(y, PRECISION, ROUNDING_MODE);
 
         Basic INVERSE_ADD = () -> (x, y) -> x.multiply(BigDecimal.valueOf(100))
                                              .divide(BigDecimal.valueOf(100)

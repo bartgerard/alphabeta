@@ -35,16 +35,16 @@ public class Register<T extends Register.Registrable> {
         }
     }
 
-    private T toUnit(final String value) {
+    public T toValue(final String value) {
         return VALUES.get(value);
     }
 
-    public T[] toUnits(final String valuesAsString) {
+    public T[] toValues(final String valuesAsString) {
         final String[] valueAsString = valuesAsString.split(SEPARATOR);
         final T[] values = generator.apply(valueAsString.length);
 
         for (int i = 0; i < valueAsString.length; i++) {
-            values[i] = toUnit(valueAsString[i]);
+            values[i] = toValue(valueAsString[i]);
         }
 
         if (values[0] == null) {

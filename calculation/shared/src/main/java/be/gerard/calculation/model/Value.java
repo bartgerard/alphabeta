@@ -29,7 +29,11 @@ public class Value {
     private final Unit[] unit;
 
     @FunctionalInterface
-    public interface Component extends Register.Registrable {}
+    public interface Component extends Register.Registrable {
+
+        default int precision() {return 2;}
+
+    }
 
     @FunctionalInterface
     public interface Unit extends Register.Registrable {
