@@ -5,13 +5,18 @@ Bart Gerard
 
 [source,batch]
 ----
-sudo npm install npm@latest -g # <1>
-npm -v # <2>
-sudo npm install -g angular-cli # <3>
-ng -v # <4>
+sudo npm cache clean -f
+sudo npm install -g n # <2>
+sudo n stable # <3>
+node -v # <4>
+sudo npm install npm@latest -g # <5>
+npm -v # <6>
+sudo npm install -g angular-cli # <7>
+ng -v # <8>
 ----
-<1> Install node.js
-<2> Verify the version
-<3> Install angular-cli
-<4> Verify the version
+<2> Install node.js
+<4> Verify the node.js version
+<6> Verify the npm version
+<7> Install angular-cli
+<8> Verify the version
 
