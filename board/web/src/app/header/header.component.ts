@@ -1,4 +1,4 @@
-import {SelectItem} from 'primeng/primeng';
+import {CheckboxModule, SelectItem} from 'primeng/primeng';
 import {Component, OnInit} from '@angular/core';
 
 @Component({

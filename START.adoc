@@ -22,3 +22,7 @@ npm install primeng --save # <9>
 <7> Install angular-cli
 <8> Verify the version
 <9> Install primeng (in ./web folder)
+
+----
+npm install font-awesome --save
+----

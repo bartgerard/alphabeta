@@ -11,11 +11,15 @@ import {
     DropdownModule,
     InputTextModule
 } from 'primeng/primeng';
+import { NavComponent } from './nav/nav.component';
+import { FooterComponent } from './footer/footer.component';
 
 @NgModule({
     declarations: [
         AppComponent,
-        HeaderComponent
+        HeaderComponent,
+        NavComponent,
+        FooterComponent
     ],
     imports: [
         BrowserModule,
