@@ -1,0 +1,17 @@
+= Documentation
+Bart Gerard
+
+== Angular 2
+
+[source,batch]
+----
+sudo npm install npm@latest -g # <1>
+npm -v # <2>
+sudo npm install -g angular-cli # <3>
+ng -v # <4>
+----
+<1> Install node.js
+<2> Verify the version
+<3> Install angular-cli
+<4> Verify the version
+

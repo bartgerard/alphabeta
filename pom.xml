@@ -13,6 +13,7 @@
         <module>rhozeta</module>
         <module>grouping</module>
         <module>calculation</module>
+        <module>board</module>
     </modules>
 
     <properties>

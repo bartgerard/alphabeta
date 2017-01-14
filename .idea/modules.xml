@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/alphabeta.iml" filepath="$PROJECT_DIR$/alphabeta.iml" />
+      <module fileurl="file://$PROJECT_DIR$/board/board.iml" filepath="$PROJECT_DIR$/board/board.iml" />
       <module fileurl="file://$PROJECT_DIR$/calculation/calculation.iml" filepath="$PROJECT_DIR$/calculation/calculation.iml" />
       <module fileurl="file://$PROJECT_DIR$/calculation/service/calculation-service.iml" filepath="$PROJECT_DIR$/calculation/service/calculation-service.iml" />
       <module fileurl="file://$PROJECT_DIR$/calculation/shared/calculation-shared.iml" filepath="$PROJECT_DIR$/calculation/shared/calculation-shared.iml" />
@@ -15,6 +16,7 @@
       <module fileurl="file://$PROJECT_DIR$/rhozeta/shared/rhozeta-shared.iml" filepath="$PROJECT_DIR$/rhozeta/shared/rhozeta-shared.iml" />
       <module fileurl="file://$PROJECT_DIR$/common/service/service.iml" filepath="$PROJECT_DIR$/common/service/service.iml" />
       <module fileurl="file://$PROJECT_DIR$/common/shared/shared.iml" filepath="$PROJECT_DIR$/common/shared/shared.iml" />
+      <module fileurl="file://$PROJECT_DIR$/board/web/web.iml" filepath="$PROJECT_DIR$/board/web/web.iml" />
     </modules>
   </component>
 </project>
