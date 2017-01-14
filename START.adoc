@@ -15,6 +15,7 @@ sudo npm install -g angular-cli # <7>
 ng -v # <8>
 ----
 <2> Install node.js
+<2> Install the latest _stable_ version
 <4> Verify the node.js version
 <6> Verify the npm version
 <7> Install angular-cli
