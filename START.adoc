@@ -26,3 +26,7 @@ npm install primeng --save # <9>
 ----
 npm install font-awesome --save
 ----
+
+npm install ng2-bootstrap bootstrap --save
+
+http://stackoverflow.com/questions/37649164/how-to-add-bootstrap-to-an-angular-cli-project
